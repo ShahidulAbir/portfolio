@@ -12,13 +12,43 @@
 </head>
 
 <body>
+  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-database-compat.js"></script>
+  <script>
+    var config = {
+      apiKey: "AIzaSyD_6VxCcKirdbh0AQK2GlHFFtDyXSescOY",
+      authDomain: "portfolio-status-68d4f.firebaseapp.com",
+      databaseURL: "https://portfolio-status-68d4f-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "portfolio-status-68d4f",
+      storageBucket: "portfolio-status-68d4f.appspot.com",
+      messagingSenderId: "616871456322",
+      appId: "1:616871456322:web:9fdcf5f7d74cf59b3107db"
+    };
+
+    firebase.initializeApp(config);
+
+    function getStatus() {
+      firebase.database().ref("/").once("value", function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+          var childKey = childSnapshot.key;
+          var childData = childSnapshot.val();
+          document.getElementById("status-header").innerHTML = childData['status'];
+          console.log(childData['status01']);
+        })
+      })
+    }
+
+    getStatus();
+  </script>
+
   <div class="top-container">
     <img class="top-cloud" src="images/cloud.png" alt="cloud-img">
     <h1>I'm Shahidul</h1>
-    <h2>a student, <span class="pro">pro</span>grammer, currently 'ফেল ঠেকাতে ব্যাস্ত'</h2>
+    <h2 id="status-header"></h2>
     <img class="bottom-cloud" src="images/cloud.png" alt="cloud-img">
     <img src="images/mountain.png" alt="mountain-img">
   </div>
+
   <div class="middle-container">
     <div class="profile">
       <img src="images\profilePic.png" alt="Shahidul's profile picture">
